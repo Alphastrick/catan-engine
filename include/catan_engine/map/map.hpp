@@ -31,8 +31,8 @@ public:
     tile& get_tile(const coordinate& coord) const;
     const std::array<coordinate, 6> get_neighbors(const coordinate& coord) const;
 
-    const size_t get_width() const;
-    const size_t get_height() const;
+    size_t get_width() const;
+    size_t get_height() const;
 
 
 private:

@@ -43,8 +43,6 @@ const std::array<map::coordinate, 6> map::get_neighbors(const coordinate& coord)
     const auto [x, y] = coord;
     const size_t index = get_index(coord);
     std::array<size_t, 6> neighbor_indices = {};
-    
-    const size_t max_index = m_width * m_height;
 
     neighbor_indices[2] = index - 1;
     neighbor_indices[3] = index + 1;
@@ -96,12 +94,12 @@ const std::array<map::coordinate, 6> map::get_neighbors(const coordinate& coord)
     return neighbors;
 }
 
-const size_t map::get_width() const
+size_t map::get_width() const
 {
     return m_width;
 }
 
-const size_t map::get_height() const
+size_t map::get_height() const
 {
     return m_height;
 }
