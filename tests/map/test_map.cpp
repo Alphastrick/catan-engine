@@ -7,8 +7,8 @@ namespace catan_engine::map {
 
 struct test_map_neighbors_param {
     std::tuple<size_t, size_t> size;
-    std::tuple<size_t, size_t> coords;
-    std::array<size_t, 6> expected;
+    map::coordinate coords;
+    std::array<map::coordinate, 6> expected;
 
 };
 
@@ -18,14 +18,14 @@ TEST_P(test_map_neighbors, test_neighbors)
 {
     const auto& param = GetParam();
     const auto [width, height] = param.size;
-    const auto [x, y] = param.coords;
     
     map _map(width, height);
     
-    const auto actual = _map.get_neighbors(x, y);
+    const auto actual = _map.get_neighbors(param.coords);
     for (size_t i = 0; i < 6; i++)
     {
-        EXPECT_EQ(actual[i], param.expected[i]) << "Index " << i;
+        EXPECT_EQ(actual[i].x, param.expected[i].x) << "Index " << i;
+        EXPECT_EQ(actual[i].y, param.expected[i].y) << "Index " << i;
     }
 }
 
@@ -36,57 +36,57 @@ INSTANTIATE_TEST_SUITE_P(
         test_map_neighbors_param{
             { 3, 4 },
             { 0, 0 },
-            { -1llu, -1llu, -1llu, 1, -1llu, 3 }
+            { map::invalid_coordinate, map::invalid_coordinate, map::invalid_coordinate, map::coordinate{ 1, 0 }, map::invalid_coordinate, map::coordinate{ 0, 1 } }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 2, 0 },
-            { -1llu, -1llu, 1, -1llu, 4, 5 }
+            { map::invalid_coordinate, map::invalid_coordinate, map::coordinate{ 1, 0 }, map::invalid_coordinate, map::coordinate{ 1, 1 }, map::coordinate{ 2, 1 } }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 0, 1 },
-            { 0, 1, -1llu, 4, 6, 7 }
+            { map::coordinate{ 0, 0 }, map::coordinate{ 1, 0 }, map::invalid_coordinate, map::coordinate{ 1, 1 }, map::coordinate{ 0, 2 }, map::coordinate{ 1, 2 } }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 1, 1 },
-            { 1, 2, 3, 5, 7, 8 }
+            { map::coordinate{ 1, 0 }, map::coordinate{ 2, 0 }, map::coordinate{ 0, 1 }, map::coordinate{ 2, 1 }, map::coordinate{ 1, 2 }, map::coordinate{ 2, 2 } }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 2, 1 },
-            { 2, -1llu, 4, -1llu, 8, -1llu }
+            { map::coordinate{ 2, 0 }, map::invalid_coordinate, map::coordinate{ 1, 1 }, map::invalid_coordinate, map::coordinate{ 2, 2 }, map::invalid_coordinate }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 0, 2 },
-            { -1llu, 3, -1llu, 7, -1llu, 9 }
+            { map::invalid_coordinate, map::coordinate{ 0, 1 }, map::invalid_coordinate, map::coordinate{ 1, 2 }, map::invalid_coordinate, map::coordinate{ 0, 3 } }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 1, 2 },
-            { 3, 4, 6, 8, 9, 10 }
+            { map::coordinate{ 0, 1 }, map::coordinate{ 1, 1 }, map::coordinate{ 0, 2 }, map::coordinate{ 2, 2 }, map::coordinate{ 0, 3 }, map::coordinate{ 1, 3 } }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 2, 2 },
-            { 4, 5, 7, -1llu, 10, 11 }
+            { map::coordinate{ 1, 1 }, map::coordinate{ 2, 1 }, map::coordinate{ 1, 2 }, map::invalid_coordinate, map::coordinate{ 1, 3 }, map::coordinate{ 2, 3 } }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 0, 3 },
-            { 6, 7, -1llu, 10, -1llu, -1llu }
+            { map::coordinate{ 0, 2 }, map::coordinate{ 1, 2 }, map::invalid_coordinate, map::coordinate{ 1, 3 }, map::invalid_coordinate, map::invalid_coordinate }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 1, 3 },
-            { 7, 8, 9, 11, -1llu, -1llu }
+            { map::coordinate{ 1, 2 }, map::coordinate{ 2, 2 }, map::coordinate{ 0, 3 }, map::coordinate{ 2, 3 }, map::invalid_coordinate, map::invalid_coordinate }
         },
         test_map_neighbors_param{
             { 3, 4 },
             { 2, 3 },
-            { 8, -1llu, 10, -1llu, -1llu, -1llu }
+            { map::coordinate{ 2, 2 }, map::invalid_coordinate, map::coordinate{ 1, 3 }, map::invalid_coordinate, map::invalid_coordinate, map::invalid_coordinate }
         }
     )
 );
