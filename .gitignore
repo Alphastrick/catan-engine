@@ -1,3 +1,15 @@
+# IDE
+.vscode
+.vs
+.idea
+
+# Camke output
+build/
+
+# Documentation
+docs/config/build/
+**/node_modules/
+
 # Prerequisites
 *.d
 
