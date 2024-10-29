@@ -13,11 +13,11 @@ file(GLOB_RECURSE tests     tests/*.cpp)
 set (CMAKE_CXX_STANDARD 20)
 
 if(MSVC)
-    add_compile_options("/W4" "$<$<CONFIG:RELEASE>:/O2>")
+    add_compile_options("/WX" "$<$<CONFIG:RELEASE>:/O2>")
 else()
     add_compile_options("-Wall" "-Wextra" "-Werror" "$<$<CONFIG:RELEASE>:-O3>")
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-        add_compile_options("-stdlib=libc++")
+        # add_compile_options("-stdlib=libc++")
     endif()
 endif()
 
