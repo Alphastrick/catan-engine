@@ -6,6 +6,11 @@ content:
     - url: ../../
       start_path: docs/
       branches: HEAD
+asciidoc:
+  attributes:
+      kroki-fetch-diagram: true
+  extensions:
+    - asciidoctor-kroki
 ui:
   bundle:
     url: ui/
