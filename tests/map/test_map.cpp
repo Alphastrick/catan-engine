@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <catan_engine/map/map.hpp>
-#include <vector>
 
 namespace catan_engine::map {
 
