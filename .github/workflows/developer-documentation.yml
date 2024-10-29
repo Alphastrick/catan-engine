@@ -35,7 +35,7 @@ jobs:
     - name: Generate Site
       run: |
         cd docs/config
-        npx antora antora-playbook.yml
+        npx antora --fetch playbook-head.yml
     - name: Upload Artifacts
       uses: actions/upload-pages-artifact@v3
       with:
